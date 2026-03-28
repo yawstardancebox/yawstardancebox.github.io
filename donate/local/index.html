@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local | YawStar Dance-Box</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #00d2ff;
+            --bg-body: #050a14;
+            --text-main: #ffffff;
+            --text-secondary: #94a3b8;
+            --card-bg: #101a2d;
+            --card-border: rgba(255, 255, 255, 0.05);
+            --qr-bg: #ffffff;
+        }
+
+        body.light-mode {
+            --bg-body: #f8fafc;
+            --text-main: #101a2d;
+            --text-secondary: #64748b;
+            --card-bg: #ffffff;
+            --card-border: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            transition: 0.3s;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .subtitle { color: var(--text-secondary); margin-bottom: 40px; }
+
+        .donation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .donate-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .donate-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Payment Logo Style */
+        .payment-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .coin-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .coin-name {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: var(--text-main);
+        }
+
+        .qr-container {
+            background-color: var(--qr-bg);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: fit-content;
+        }
+
+        .qr-image {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .back {
+            margin-top: 50px;
+            display: inline-block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .back:hover { color: var(--primary-color); }
+
+        footer {
+            margin-top: auto;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Support the Project</h1>
+        <p class="subtitle">Scan the QR code to donate via local payments.</p>
+
+        <div class="donation-list">
+            <div class="donate-card">
+                <div class="coin-info">
+                    <img src="assets/img/KBZ_Logo.webp" alt="KBZ Pay" class="payment-logo">
+                    <span class="coin-name">KBZ Pay</span>
+                </div>
+                <div class="qr-container">
+                    <img src="assets/img/KBZ Pay.svg" alt="KBZ Pay QR" class="qr-image">
+                </div>
+            </div>
+
+            <div class="donate-card">
+                <div class="coin-info">
+                    <img src="assets/img/Wave_Logo.webp" alt="Wave Pay" class="payment-logo">
+                    <span class="coin-name">Wave Pay</span>
+                </div>
+                <div class="qr-container">
+                    <img src="assets/img/Wave Pay.svg" alt="Wave Pay QR" class="qr-image">
+                </div>
+            </div>
+
+            <div class="donate-card">
+                <div class="coin-info">
+                    <img src="assets/img/AYA_Logo.webp" alt="AYA Pay" class="payment-logo">
+                    <span class="coin-name">AYA Pay</span>
+                </div>
+                <div class="qr-container">
+                    <img src="assets/img/AYA Pay.svg" alt="AYA Pay QR" class="qr-image">
+                </div>
+            </div>
+        </div>
+
+        <a href="/donate" class="back"><i class="fa-solid fa-arrow-left"></i> Back</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 YawStar Dance-Box | Stay Private</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+            }
+        });
+    </script>
+</body>
+
+</html>

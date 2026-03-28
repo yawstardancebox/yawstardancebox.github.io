@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto | YawStar Dance-Box</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #00d2ff;
+            --bg-body: #050a14;
+            --text-main: #ffffff;
+            --text-secondary: #94a3b8;
+            --card-bg: #101a2d;
+            --card-border: rgba(255, 255, 255, 0.05);
+            --qr-bg: #ffffff;
+            /* QR Code နောက်ခံ (အမြဲအဖြူရောင်ဖြစ်ရမယ်) */
+        }
+
+        body.light-mode {
+            --bg-body: #f8fafc;
+            --text-main: #101a2d;
+            --text-secondary: #64748b;
+            --card-bg: #ffffff;
+            --card-border: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            transition: 0.3s;
+        }
+
+        /* Navbar */
+        nav {
+            width: 100%;
+            padding: 20px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
+            box-sizing: border-box;
+            background-color: var(--bg-body);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 600px;
+            /* Card size ကို ထိန်းထားဖို့ */
+            width: 90%;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        /* --- DONATION LAYOUT (အပေါ်အောက်စီ) --- */
+        .donation-list {
+            display: flex;
+            flex-direction: column;
+            /* အပေါ်အောက်စီရန် */
+            gap: 30px;
+            /* Card တစ်ခုနဲ့တစ်ခုကြား အကွာအဝေး */
+        }
+
+        .donate-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            /* အလယ်တည့်တည့်ဖြစ်အောင် */
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* QR နဲ့ စာသားတွေ အလယ်ရောက်အောင် */
+        }
+
+        .donate-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* --- COIN INFO (FontAwesome Icon တွေကို ပြန်သုံးထားတယ်) --- */
+        .coin-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .coin-icon {
+            font-size: 2rem;
+            color: var(--text-main);
+            /* Invisibleman UI အတိုင်း အဖြူရောင်icon */
+        }
+
+        .coin-name {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: var(--text-main);
+        }
+
+        /* --- QR CODE SECTION (ဒီနေရာမှာ SVG ပုံထည့်ထားတယ်) --- */
+        .qr-container {
+            background-color: var(--qr-bg);
+            /* Scan ဖတ်ရလွယ်အောင် နောက်ခံအဖြူ */
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: fit-content;
+            /* SVG Size အတိုင်း Box Size ဖြစ်အောင် */
+        }
+
+        .qr-image {
+            width: 200px;
+            /* Scan ဖတ်လို့ရတဲ့ အရွယ်အစားအထိ ကြီးထားတယ် */
+            height: 200px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* --- ADDRESS BOX --- */
+        .address-box {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--card-border);
+            gap: 10px;
+            width: 100%;
+            /* Card ရဲ့အပြည့်ယူမယ် */
+            box-sizing: border-box;
+        }
+
+        .address-text {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            word-break: break-all;
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            border: none;
+            color: #000;
+            padding: 9px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .back {
+            margin-top: 50px;
+            display: inline-block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            color: var(--primary-color);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Support the Project</h1>
+        <p class="subtitle">Scan the QR code or copy the address to donate.</p>
+
+        <div class="donation-list">
+            <div class="donate-card">
+                <div class="coin-info">
+                    <i class="fa-brands fa-bitcoin coin-icon"></i>
+                    <span class="coin-name">Bitcoin (BTC)</span>
+                </div>
+
+                <div class="qr-container">
+                    <img src="assets/img/BTC.svg" alt="Bitcoin QR Code" class="qr-image">
+                </div>
+
+                <div class="address-box">
+                    <span class="address-text" id="btc-addr">13cbjXVLjcskdTWVgjStrf1aSMzB7hUusM</span>
+                    <button class="copy-btn" onclick="copyText('btc-addr')">Copy</button>
+                </div>
+            </div>
+
+            <div class="donate-card">
+                <div class="coin-info">
+                    <i class="fa-brands fa-ethereum coin-icon"></i>
+                    <span class="coin-name">Ethereum (ETH)</span>
+                </div>
+
+                <div class="qr-container">
+                    <img src="assets/img/ETH.svg" alt="Ethereum QR Code" class="qr-image">
+                </div>
+
+                <div class="address-box">
+                    <span class="address-text" id="eth-addr">0xc057032c4c35ffdbcfe11996809090ecb069a7f0</span>
+                    <button class="copy-btn" onclick="copyText('eth-addr')">Copy</button>
+                </div>
+            </div>
+
+            <div class="donate-card">
+                <div class="coin-info">
+                    <i class="fa-solid fa-circle-dollar-to-slot coin-icon"></i>
+                    <span class="coin-name">Tether (USDT-TRC20)</span>
+                </div>
+
+                <div class="qr-container">
+                    <img src="assets/img/USDT.svg" alt="Tether QR Code" class="qr-image">
+                </div>
+
+                <div class="address-box">
+                    <span class="address-text" id="usdt-addr">TEcFPq2bQgiNkjKe38GkfwQRRYSHRNDSuu</span>
+                    <button class="copy-btn" onclick="copyText('usdt-addr')">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <a href="/donate" class="back"><i class="fa-solid fa-arrow-left"></i> Back</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 YawStar Dance-Box | Stay Private</p>
+    </footer>
+
+    <script>
+        // Copy Function with Feedback
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector(`button[onclick="copyText('${elementId}')"]`);
+                const originalText = btn.innerText;
+                btn.innerText = "COPIED!";
+                btn.style.background = "#22c55e"; // Success green
+                btn.style.color = "#fff";
+
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = "var(--primary-color)";
+                    btn.style.color = "#000";
+                }, 2000);
+            });
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            body.classList.toggle('light-mode');
+
+            if (body.classList.contains('light-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+            }
+        }
+    </script>
+</body>
+
+</html>
